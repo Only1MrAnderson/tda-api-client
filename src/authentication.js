@@ -8,7 +8,7 @@ const path = require('path');
 const writeOutAuthResultToFile = async (authConfig, config) => {
     authConfig.expires_on = Date.now() + (authConfig.expires_in * 1000);
     return new Promise((resolve, reject) => {
-        const filePath = path.join(process.cwd(), `/config/tdaclientauth.json`);
+        const filePath = path.join(process.cwd(), `/tmp/tdaclientauth.json`);
         if (config.verbose) {
             console.log(`writing new auth data to ${filePath}`);
         }
@@ -50,7 +50,7 @@ const doAuthenticationHandshake = async (auth_config, config) => {
             }
         };
 
-        const authConfig = auth_config || require(path.join(process.cwd(), `/config/tdaclientauth.json`));
+        const authConfig = auth_config || require(path.join(process.cwd(), `/tmp/tdaclientauth.json`));
         const postData = getNewAccessTokenPostData(authConfig);
         apiOptions.headers['Content-Length'] = postData.length;
 
@@ -117,7 +117,7 @@ const refreshAuthentication = async (auth_config, config) => {
  * @async
  */
 const getAuthentication = async (config) => {
-    const authConfig = require(path.join(process.cwd(), `/config/tdaclientauth.json`));
+    const authConfig = require(path.join(process.cwd(), `/tmp/tdaclientauth.json`));
     config = config || {};
     if (!authConfig.expires_on || authConfig.expires_on < Date.now() + (10*60*1000)) {
         return refreshAuthentication(authConfig, config);
