@@ -1,5 +1,5 @@
 {
-  "name": "tda-api-client",
+  "name": "tda-api-client-v2",
   "version": "1.0.0",
   "description": "A client app to provide access to TD Ameritrade's API",
   "main": "index.js",
